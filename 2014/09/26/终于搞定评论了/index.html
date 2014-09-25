@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>标签 | Yusiyuan&#39;s Blog</title>
+  <title>终于搞定评论功能了 | Yusiyuan&#39;s Blog</title>
   <meta name="author" content="Jerry Yu">
+  
+  <meta name="description" content="折腾了半天终于在个人主页里加入了评论功能，路过的朋友可以在文章下面留言。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="标签"/>
+  <meta property="og:title" content="终于搞定评论功能了"/>
   <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
 
   
@@ -80,124 +82,46 @@
 
   <div class="container">
   	<div class="content">
-    	 <!-- title -->
-<div class="page-header">
-	 <h1><i class="fa fa-tags"></i> 标签</h1>
-</div>
+    	 
 
-<div class="row page">
+<%- partial('post/title', {item: item, index: false}) %>
 
-	
+<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+	<!-- cols -->
+	<% if (post) { %>
 	<div class="col-md-9">
-	
+	<% } else { %>
+	<div class="col-md-12">
+	<% } %>
 
+	<% if (item.description) { %>
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
+		</div> <!-- alert -->
+	<% } %>		
 
-	<div class="widget">
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="#hexo">hexo<span>2</span></a></li>
-		
-		</ul>
+	<!-- content -->
+	<div class="mypage">		
+	    <%- item.content %>	  
 	</div>
 
-<div class="archive">
-	
-
-	<h4 class="archive-ul show" data-toggle="collapse" id="hexo" data-target="#modal-hexo"> hexo <b class="caret"></b></h4>
-	   <ul id="modal-hexo" class="collapse in">
-
-	   
-		   
-	   	   	 <li class="listing-item"><a href="/2014/09/26/终于搞定评论了/" >终于搞定评论功能了</a></li>
-		  
-	   
-		   
-	   	   	 <li class="listing-item"><a href="/2014/09/25/你好，hexo/" >你好，hexo!</a></li>
-		  
-	   
-	   
-	   </ul>
-	
-	</ul>
-</div>
-
-
-
-</div> <!-- col-md-9 -->
-
-	
-		<div class="col-md-3">
-	<div id="sidebar">
-	
-			<div class="form-group has-success has-feedback">
-  <form action="//google.com/search" method="get" accept-charset="utf-8" >
-    <input type="search" name="q" results="0" placeholder="搜索" class="form-control">
-    <input type="hidden" name="q" value="site:ysyjerry1992.github.io">	
-  </form>
-</div>
-
-		
-			
-	<div class="widget">
-		<h4>分类</h4>
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="/categories/技术/">技术<span>2</span></a></li>
-		
-		</ul>
+	<div>
+  	<center>
+	<%- partial('post/pagination', {page: item}) %>
+    </center>
 	</div>
-
-		
-			
-	<div class="widget">
-		<h4>标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/hexo/">hexo<span>2</span></a></li>
-		
-		 
-		</ul>
-	</div>
-
-
-		
-			
-<div class="widget">
-  <h4>最新文章</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/2014/09/26/终于搞定评论了/" ><i class="fa fa-file-o"></i>终于搞定评论功能了</a>
-      </li>
-    
-      <li>
-        <a href="/2014/09/25/你好，hexo/" ><i class="fa fa-file-o"></i>你好，hexo!</a>
-      </li>
-    
-  </ul>
-</div>
-
-		
-			
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/ysyjerry1992" title="My Github account." target="_blank"]);">My Github</a></li>
+	<!-- comment -->
+	<%- partial('post/comment', {page: item}) %>
 	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/pub/%E6%80%9D%E6%BA%90-%E8%99%9E/97/360/765" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
+	</div> <!-- col-md-9/col-md-12 -->
 	
-	</ul>
-</div>
+	<% if (post) { %>
+		<%- partial('post/meta', {item: item}) %>
+	<% } %>
 
+</div><!-- row -->
 
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-
-</div> <!-- row-fluid -->
 	</div>
   </div>
   <div class="container-narrow">
