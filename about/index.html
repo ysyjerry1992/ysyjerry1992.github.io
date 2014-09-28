@@ -6,6 +6,12 @@
   <title>关于我 | Yusiyuan&#39;s Blog</title>
   <meta name="author" content="Jerry Yu">
   
+  <meta name="description" content="&amp;#160; &amp;#160; &amp;#160; &amp;#160;我叫虞思源，是个程序猿。编程于我，是一门艺术，是一种创作。键盘就是我的琴键，愿谱出自己的高山流水。
+&amp;#160; &amp;#160; &amp;#160; &amp;#160;我现在正在上海交通大学攻读软件工程硕士学位。
+教育经历
+
+2010-2014 上海交通大学 ">
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -99,7 +105,33 @@
 
 	<!-- content -->
 	<div class="mypage">		
-	    	  
+	    <p><img src="codeMonkey.jpg" width="200" height="160" align="right"><br>&#160; &#160; &#160; &#160;我叫虞思源，是个程序猿。编程于我，是一门艺术，是一种创作。键盘就是我的琴键，愿谱出自己的高山流水。</p>
+<p>&#160; &#160; &#160; &#160;我现在正在上海交通大学攻读软件工程硕士学位。</p>
+<h2 id="教育经历">教育经历</h2>
+<ul>
+<li>2010-2014 上海交通大学 软件工程 本科</li>
+<li>2014-2017 上海交通大学 软件工程 硕士</li>
+</ul>
+<h2 id="项目经历">项目经历</h2>
+<ul>
+<li>惠好制药移动应用系统<ul>
+<li>利用移动设备特性为业务人员提供便利</li>
+<li>为管理人员提供高效的管理系统</li>
+<li><strong>获得第四届全国大学生服务外包大赛团体二等奖</strong><br><br> </li>
+</ul>
+</li>
+<li>x3d协同建模平台<ul>
+<li>提供3d可视化建模平台</li>
+<li>着重于处理协同建模中可能产生的协同冲突<br><br>   </li>
+</ul>
+</li>
+<li>撞球小游戏<ul>
+<li>解密类小游戏    </li>
+<li>基于物理引擎jbox2D</li>
+</ul>
+</li>
+</ul>
+	  
 	</div>
 
 	<div>
@@ -115,7 +147,19 @@
 	
 	<div>
 	<!-- comment -->
-	
+	<% if (page.comment){ %>
+<section id="comment">
+  <h2 class="title"><%= __('comment') %></h2>
+
+  <% if (theme.comment_provider == "facebook") {
+      if (theme.facebook) { %>
+      <%- partial('_partial/facebook_comment', {fbConfig: theme.facebook}) %>
+      <% } %>
+  <% } else if(config.duoshuo_shortname) { %>
+  <div class="ds-thread" data-thread-key="<%= item.title %>-<%= item.slug %>" data-title="<%= item.title %>" data-url="<%= page.permalink %>"></div>
+  <% } %>
+</section>
+<% } %>
 
 	</div>
 	
@@ -124,6 +168,9 @@
 	
 
 </div><!-- row -->
+	
+
+
 
 	</div>
   </div>
@@ -139,12 +186,12 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
-
+<% if (config.disqus_shortname){ %>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"yusiyuan"};
 	(function() {
@@ -154,33 +201,34 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		var ds = document.createElement('script');
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
-
+<% } %>
 
 
 
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 </body>
    </html>

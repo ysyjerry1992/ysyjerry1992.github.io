@@ -1,0 +1,75 @@
+div, table, td, pre, input {
+    					margin: 0;
+    					padding: 0;
+
+    				}
+    				pre, textarea {
+    					white-space: pre-wrap;
+    					white-space: -moz-pre-wrap;
+    					white-space: -pre-wrap;
+    					white-space: -o-pre-wrap;
+    					word-wrap: break-word;
+    				}
+    				.border_box {
+						box-sizing: border-box;
+						-ms-box-sizing: border-box;
+						-moz-box-sizing: border-box;
+						-webkit-box-sizing: border-box;
+					}
+    				.row_layout .resume {
+    					margin: 0 auto;
+    				}
+    				.row_layout .resume .photo_table {
+    					border-collapse: separate;
+    					border-spacing: 0;
+    					table-layout: fixed;
+    					width: 100%;
+    				}
+    				.row_layout .resume .photo_table td {
+    					text-align: left;
+    					vertical-align: top;
+    				}
+    				.row_layout .resume .photo_table td img {
+    					border: 0;
+    					display: block;
+    				}
+.SimSun { font-family: SimSun, 宋体, 华文宋体; }
+                    .SimHei { font-family: SimHei, 黑体, Hei, 华文细黑, 华文黑体; }
+                    .SimKai { font-family: SimKai, 楷体, 楷体_GB2312, Kai, 华文楷体; }
+                    .SimFang { font-family: SimFang, 仿宋, 仿宋_GB2312, 华文仿宋; }
+                    .Arial { font-family: Arial; }
+                    .Times { font-family: Times New Roman; }
+                    .Tahoma { font-family: Tahoma; }
+                    .Verdana { font-family: Verdana; }
+.row_layout .resume {
+				border: 1px solid #ccc;
+				
+				-webkit-box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+				-moz-box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+				box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+			}
+
+    		.row_layout .resume .section,
+    		.row_layout .resume .row {
+    			position: relative;
+    		}
+    		.row_layout .resume .row table {
+				border-collapse: separate;
+				border-spacing: 0;
+				table-layout: fixed;
+				width: 100%;
+			}
+    		.row_layout .resume .row .cell pre {
+    			display: block;
+    			position: relative;
+    			line-height: 0;
+    			font-size: 0;
+    		}
+    		@-moz-document url-prefix() {
+				.row_layout .resume .row table {
+					table-layout: auto;
+				}
+				.row_layout .resume .row table td {
+					max-width: 0;
+				}
+			}
