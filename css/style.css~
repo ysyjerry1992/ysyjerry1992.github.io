@@ -399,7 +399,7 @@ h4 {
   font-size: 1.9em;
   font-weight: normal;
   font-family: 'PT Sans Narrow', 'Times Roman', '雅黑', '文泉驿微米黑', '黑体', sans-serif;
-  background-color: #e5e5e5;
+  background-color: #D1D1D1;
 }
 
 .page h3.title a {

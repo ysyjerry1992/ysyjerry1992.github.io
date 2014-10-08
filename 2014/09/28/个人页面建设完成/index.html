@@ -84,51 +84,121 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> 个人页面建设完成</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>今天把博客中的”关于我”建设完成，主要是对自己的一个简单介绍。<br><a id="more"></a></p>
+<h2 id="遇到的困难">遇到的困难</h2>
+<p>原本是想把主题修改之后让我能够直接嵌一个html的简历的，后来折腾了半天页愣是没有搞定，不知道是css冲突了还是什么，最后还是决定直接老老实实写md格式的。</p>
+<h2 id="后续工作">后续工作</h2>
+<p>接下去可能会在页面后方添加我的技能树的展示。<br>就像我的朋友<a href="http://jerryzou.com/resume" target="_blank" rel="external">邹萌萌</a>个人主页中的那样。</p>
+<h2 id="一点感想">一点感想</h2>
+<p>把这页做完之后，才发现自己的经历还是太过单薄。希望能在硕士生涯中参与更多实际有意义的项目，丰富自己的经历。</p>
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/06/leetCode之一：Two-Sum/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/09/26/终于搞定评论了/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-个人页面建设完成" data-title="个人页面建设完成" data-url="http://ysyjerry1992.github.io/2014/09/28/个人页面建设完成/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	9月 28 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/博客/">博客<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/hexo/">hexo<span>3</span></a></li> <li><a href="/tags/感悟/">感悟<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>
