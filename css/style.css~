@@ -341,7 +341,7 @@ h1,h2,h3,h4,h5,h6{
 
 h2{
   margin: 0.83em 0;
-  color: green;
+  color: black;
   padding-top: 40px;
   margin-top: -25px;
 }
@@ -398,7 +398,7 @@ h4 {
   border-top:3px solid #ccc;
   font-size: 1.9em;
   font-weight: normal;
-  font-family: 'PT Sans Narrow', '雅黑', '文泉驿微米黑', '黑体', sans-serif;
+  font-family: 'PT Sans Narrow', 'Times Roman', '雅黑', '文泉驿微米黑', '黑体', sans-serif;
   background-color: #e5e5e5;
 }
 
