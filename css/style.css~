@@ -398,7 +398,7 @@ h4 {
   border-top:3px solid #ccc;
   font-size: 1.9em;
   font-weight: normal;
-  font-family: 'PT Sans Narrow', "Times New Roman", '雅黑', '文泉驿微米黑', '黑体', sans-serif;
+  font-family: "Times New Roman", '雅黑', '文泉驿微米黑', '黑体', sans-serif;
   background-color: #D1D1D1;
 }
 
