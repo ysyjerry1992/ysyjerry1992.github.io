@@ -84,51 +84,134 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> leetCode之二：Median of Two Sorted Array</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>这是leetCode的第二道题目,求两个已排序的数组合并后的中位数，依然把做的过程记录下来。<br><a id="more"></a></p>
+<blockquote>
+<p>There are two sorted arrays A and B of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>当我第一眼看到O(log (m+n))的时候第一反应就是合并两个已排序的数组，直接返回中位数复杂度刚好。</p>
+<p>当然直接用两个指针去找也是可以的。</p>
+<p>写完之后果然通过了。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class Solution</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span>(<span class="keyword">int</span> A[], <span class="keyword">int</span> m, <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> i1=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> i2=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> i3=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> C[m+n];</div><div class="line">        <span class="keyword">while</span>(i1&lt;m&amp;&amp;i2&lt;n)</div><div class="line">        {</div><div class="line">            <span class="keyword">if</span>(A[i1]&lt;B[i2])</div><div class="line">                C[i3++]=A[i1++];</div><div class="line">            <span class="keyword">else</span></div><div class="line">                C[i3++]=B[i2++];</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span>(i1&lt;m)</div><div class="line">        {</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=i1; i&lt;m; i++)</div><div class="line">                C[i3++]=A[i];</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span>(i2&lt;n)</div><div class="line">        {</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=i2; i&lt;n; i++)</div><div class="line">                C[i3++]=B[i];</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span>((m+n)%<span class="number">2</span>==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">double</span>(C[(m+n)/<span class="number">2</span>-<span class="number">1</span>]+C[(m+n)/<span class="number">2</span>])/<span class="number">2.0</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">double</span>(C[(m+n)/<span class="number">2</span>]);</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h2 id="其他方法">其他方法</h2>
+<p>通过一番搜索之后发现原来有更好的做法，就是将其转换为求两个已排序数组合并后的第k小数问题，这才发现自己原先有些想当然了。</p>
+<p>主要想法就是用二分搜索，每次都排除掉不可能的情况。</p>
+<p>将k分成两半，比较A[k/2-1]和B[k/2-1]，如果A[k/2-1]&lt;B[k/2-1]，那么对于A[0]~A[k/2-1]每一个数,A[k/2]~A[m-1]以及B[k/2-1]~B[n-1]都比这个数大，共有m+n-k+1个，所以这些数都不可能是第k小数，且都比第k小数还要小，故将其舍弃，大于的情况同理。</p>
+<p>当然接下去就是一些细节处理了，比如边界啊什么的。</p>
+<p>值得一提的是，当你每次都用k/2时有时会发现其中一个数组的长度比如m可能根本就不够k/2了，这个时候将k分成m和k-m就可以了。</p>
+<h2 id="代码-1">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> findKth(<span class="keyword">int</span> A[],<span class="keyword">int</span> m,<span class="keyword">int</span> B[],<span class="keyword">int</span> n,<span class="keyword">int</span> k)</div><div class="line">{</div><div class="line">	<span class="keyword">if</span>(m&gt;n)<span class="keyword">return</span> findKth(B,n,A,m,k);</div><div class="line">	<span class="keyword">if</span>(m==<span class="number">0</span>)<span class="keyword">return</span> B[k-<span class="number">1</span>];</div><div class="line">	<span class="keyword">if</span>(k==<span class="number">1</span>)<span class="keyword">return</span> A[<span class="number">0</span>]&gt;B[<span class="number">0</span>]?B[<span class="number">0</span>]:A[<span class="number">0</span>];</div><div class="line">	<span class="keyword">int</span> index1=min(k/<span class="number">2</span>,m);</div><div class="line">	<span class="keyword">int</span> index2=k-index1;</div><div class="line">	<span class="keyword">if</span>(A[index1-<span class="number">1</span>]&lt;B[index2-<span class="number">1</span>])</div><div class="line">		<span class="keyword">return</span> findKth(A+index1,m-index1,B,n,k-index1);</div><div class="line">	<span class="keyword">else</span></div><div class="line">		<span class="keyword">return</span> findKth(A,m,B+index2,n-index2,k-index2);</div><div class="line">}</div><div class="line">class Solution</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">double</span> <span class="title">findMedianSortedArrays</span>(<span class="keyword">int</span> A[], <span class="keyword">int</span> m, <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</div><div class="line">	{</div><div class="line">		<span class="keyword">int</span> total=m+n;</div><div class="line">		<span class="keyword">if</span>(total%<span class="number">2</span>==<span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> findKth(A,m,B,n,total/<span class="number">2</span>+<span class="number">1</span>);</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="keyword">return</span> (findKth(A,m,B,n,total/<span class="number">2</span>)</div><div class="line">					+findKth(A, m, B, n, total / <span class="number">2</span> + <span class="number">1</span>)) / <span class="number">2</span>;</div><div class="line">	}</div><div class="line">};</div></pre></td></tr></table></figure>
+
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/08/leetCode之三：Longest-Substring-Without-Repeating-Characters/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/06/leetCode之一：Two-Sum/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之二：Median-of-Two-Sorted-Array" data-title="leetCode之二：Median of Two Sorted Array" data-url="http://ysyjerry1992.github.io/2014/10/07/leetCode之二：Median-of-Two-Sorted-Array/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 7 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>4</span></a></li> <li><a href="/tags/算法/">算法<span>3</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>
@@ -144,12 +227,12 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
-
+<% if (config.disqus_shortname){ %>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"yusiyuan"};
 	(function() {
@@ -159,33 +242,34 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		ds.charset = 'UTF-8';
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		var ds = document.createElement('script');
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
-
+<% } %>
 
 
 
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
