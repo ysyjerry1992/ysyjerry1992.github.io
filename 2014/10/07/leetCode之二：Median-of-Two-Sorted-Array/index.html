@@ -1,14 +1,194 @@
-<%- partial('_partial/head') %>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>leetCode之二：Median of Two Sorted Array | Yusiyuan&#39;s Blog</title>
+  <meta name="author" content="Jerry Yu">
+  
+  <meta name="description" content="这是leetCode的第二道题目,求两个已排序的数组合并后的中位数，依然把做的过程记录下来。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="leetCode之二：Median of Two Sorted Array"/>
+  <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
  <body>  
-  <%- partial('_partial/navigation') %>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Yusiyuan&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>文章
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>分类
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>标签
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>关于我
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
   <div class="container">
   	<div class="content">
-    	 <%- body %>
+    	 
+
+<%- partial('post/title', {item: item, index: false}) %>
+
+<% if (!item.resume) { %>
+
+
+
+<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+	<!-- cols -->
+	<% if (post) { %>
+	<div class="col-md-9">
+	<% } else { %>
+	<div class="col-md-12">
+	<% } %>
+
+	<% if (item.description) { %>
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
+		</div> <!-- alert -->
+	<% } %>		
+
+	<!-- content -->
+	<div class="mypage">		
+	    <%- item.content %>	  
+	</div>
+
+	<div>
+  	<center>
+	<%- partial('post/pagination', {page: item}) %>
+    </center>
+	</div>
+	
+	<div>
+	<!-- comment -->
+	<%- partial('post/comment', {page: item}) %>
+	</div>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+	
+	<% if (post) { %>
+		<%- partial('post/meta', {item: item}) %>
+	<% } %>
+
+</div><!-- row -->
+
+<% } %>	
+
 	</div>
   </div>
   <div class="container-narrow">
-  <footer> <%- partial('_partial/footer') %> </footer>
+  <footer> <p>
+  &copy; 2014 Jerry Yu
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
 </div> <!-- container-narrow -->
-  <%- partial('_partial/after_footer') %>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yusiyuan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());*/
+</script>
+
+
+
+	
+
+
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+<% } %>
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fbf6268b95d8220ab2e7f31ba95b690e5' type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
    </html>
