@@ -57,6 +57,7 @@ body {
 
 .post{
   font-size: 1.2em;
+  text-indent:2em;
 }
 
 .page{
@@ -337,6 +338,7 @@ h1,h2,h3,h4,h5,h6{
   text-rendering:optimizelegibility;
   font-weight:bold;
   font-family: 'Open Sans', "Helvetica Neue", "Helvetica","Microsoft YaHei", "WenQuanYi Micro Hei",Arial, sans-serif;
+  text-indent:0em;
 }
 
 h2{
@@ -398,7 +400,7 @@ h4 {
   border-top:3px solid #ccc;
   font-size: 1.9em;
   font-weight: normal;
-  font-family: '文泉驿微米黑', '黑体', sans-serif;
+  font-family: 'PT Sans Narrow', '微软雅黑', '文泉驿微米黑', '黑体', sans-serif;
   background-color: #D1D1D1;
 }
 

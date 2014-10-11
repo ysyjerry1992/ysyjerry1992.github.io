@@ -95,7 +95,7 @@
 	<div class="widget">
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="#leetCode">leetCode<span>5</span></a></li>
+			<li><a href="#leetCode">leetCode<span>6</span></a></li>
 		
 			<li><a href="#博客">博客<span>3</span></a></li>
 		
@@ -108,6 +108,10 @@
 	   <h4 class="archive-ul show" data-toggle="collapse" id="leetCode" data-target="#modal-leetCode"> leetCode <b class="caret"></b></h4>
 	   <ul id="modal-leetCode" class="collapse in">
 
+	   
+		   
+	   	   	 <li class="listing-item"><a href="/2014/10/11/leetCode之六：ZigZag-Conversion/" >leetCode之六：ZigZag Conversion</a></li>
+		  
 	   
 		   
 	   	   	 <li class="listing-item"><a href="/2014/10/10/leetCode之五：Longest-Palindromic-Substring/" >leetCode之五：Longest Palindromic Substring</a></li>
@@ -142,6 +146,8 @@
 	   <h4 class="archive-ul show" data-toggle="collapse" id="博客" data-target="#modal-博客"> 博客 <b class="caret"></b></h4>
 	   <ul id="modal-博客" class="collapse in">
 
+	   
+		   
 	   
 		   
 	   
@@ -192,7 +198,7 @@
 		<h4>分类</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/leetCode/">leetCode<span>5</span></a></li>
+			<li><a href="/categories/leetCode/">leetCode<span>6</span></a></li>
 		
 			<li><a href="/categories/博客/">博客<span>3</span></a></li>
 		
@@ -205,17 +211,17 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/算法/">算法<span>3</span></a></li>
-		
-			<li><a href="/tags/c/">c++<span>5</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
+			<li><a href="/tags/字符串/">字符串<span>3</span></a></li>
 		
 			<li><a href="/tags/感悟/">感悟<span>1</span></a></li>
 		
-			<li><a href="/tags/字符串/">字符串<span>2</span></a></li>
-		
 			<li><a href="/tags/链表/">链表<span>1</span></a></li>
+		
+			<li><a href="/tags/c/">c++<span>6</span></a></li>
+		
+			<li><a href="/tags/算法/">算法<span>3</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>3</span></a></li>
 		
 		 
 		</ul>
@@ -227,6 +233,10 @@
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2014/10/11/leetCode之六：ZigZag-Conversion/" ><i class="fa fa-file-o"></i>leetCode之六：ZigZag Conversion</a>
+      </li>
     
       <li>
         <a href="/2014/10/10/leetCode之五：Longest-Palindromic-Substring/" ><i class="fa fa-file-o"></i>leetCode之五：Longest Palindro...</a>
@@ -242,10 +252,6 @@
     
       <li>
         <a href="/2014/10/07/leetCode之二：Median-of-Two-Sorted-Array/" ><i class="fa fa-file-o"></i>leetCode之二：Median of Two So...</a>
-      </li>
-    
-      <li>
-        <a href="/2014/10/06/leetCode之一：Two-Sum/" ><i class="fa fa-file-o"></i>leetCode之一：Two Sum</a>
       </li>
     
   </ul>
@@ -286,10 +292,10 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
 
 <script type="text/javascript">
@@ -302,13 +308,13 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
@@ -318,15 +324,15 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
