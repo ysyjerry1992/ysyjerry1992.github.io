@@ -84,53 +84,16 @@
 
   <div class="container">
   	<div class="content">
-    	 <%- partial('post/title', {item: item, index: false}) %>
-
-<% if (!item.resume) { %>
-
-
-
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
-	<!-- cols -->
-	<% if (post) { %>
-	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
-
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
-
-	<!-- content -->
-	<div class="mypage">		
-	    <%- item.content %>	  
-	</div>
-
-	<div>
-  	<center>
-	<%- partial('post/pagination', {page: item}) %>
-    </center>
-	</div>
-	
-	<div>
-	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
-	</div>
-	
-	</div> <!-- col-md-9/col-md-12 -->
-	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
-
-</div><!-- row -->
-
-<% } %>	
-
-
+    	 <%- partial('_partial/article', {item: page, post: false}) %>
+<script type="text/javascript">
+	(function() {
+		var ds = document.createElement('link');
+		ds.type = 'text/css';ds.rel = 'stylesheet';
+		ds.href = '/css/about.css';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
 
 	</div>
   </div>
