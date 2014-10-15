@@ -57,7 +57,6 @@ body {
 
 .post{
   font-size: 1.2em;
-  text-indent:2em;
 }
 
 .page{
@@ -397,17 +396,17 @@ h4 {
 .page h3.title {
   position:relative;
   padding: 2px 5px 5px 5px;
-  border-top:3px solid #ccc;
+  border-top:3px solid whitesmoke;
   font-size: 1.9em;
   font-weight: normal;
   font-family: 'PT Sans Narrow', '微软雅黑', '文泉驿微米黑', '黑体', sans-serif;
-  background-color: #D1D1D1;
+  background-color: whitesmoke;
 }
 
 .page h3.title a {
-  color: black;
+  color: #1863a1;
 }
-
+																			
 .page h3.title span.date {
   position:absolute;
   right:5px;
