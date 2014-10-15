@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>个人页面建设完成 | Yusiyuan&#39;s Blog</title>
+  <title>添加友情链接 | Yusiyuan&#39;s Blog</title>
   <meta name="author" content="Jerry Yu">
   
-  <meta name="description" content="今天把博客中的”关于我”建设完成，主要是对自己的一个简单介绍。">
+  <meta name="description" content="今天在我的博客中添加了友情链接，朋友们可以点击链接去到我朋友的主页。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="个人页面建设完成"/>
+  <meta property="og:title" content="添加友情链接"/>
   <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
 
   
@@ -87,7 +87,7 @@
 
 	
 		<div class="page-header">		
-			<h1> 个人页面建设完成</h1>
+			<h1> 添加友情链接</h1>
 		</div>		
 	
 
@@ -103,13 +103,27 @@
 
 	<!-- content -->
 	<div class="mypage">		
-	    <p>今天把博客中的”关于我”建设完成，主要是对自己的一个简单介绍。<br><a id="more"></a></p>
-<h2 id="遇到的困难">遇到的困难</h2>
-<p>原本是想把主题修改之后让我能够直接嵌一个html的简历的，后来折腾了半天页愣是没有搞定，不知道是css冲突了还是什么，最后还是决定直接老老实实写md格式的。</p>
-<h2 id="后续工作">后续工作</h2>
-<p>接下去可能会在页面后方添加我的技能树的展示。<br>就像我的朋友<a href="http://jerryzou.com/resume" target="_blank" rel="external">邹萌萌</a>个人主页中的那样。</p>
-<h2 id="一点感想">一点感想</h2>
-<p>把这页做完之后，才发现自己的经历还是太过单薄。希望能在硕士生涯中参与更多实际有意义的项目，丰富自己的经历。</p>
+	    <p>今天在我的博客中添加了友情链接，朋友们可以点击链接去到<a href="http://jerryZou.com" target="_blank" rel="external">我朋友的主页</a>。<br><a id="more"></a></p>
+<h2 id="修改_config-yml">修改_config.yml</h2>
+<p>在themes/freemind/找到_config.yml。添加</p>
+<pre><code><span class="input"><span class="prompt">&gt;friends:
+&gt;</span>  - <span class="symbol">title:</span> <span class="string">"Jerry Zou"</span></span>
+<span class="input"><span class="prompt">&gt;    url: http://jerryZou.com
+&gt;</span>    <span class="symbol">intro:</span> <span class="string">"Jerry Zou's homepage"</span></span>
+&gt;    <span class="symbol">icon:</span> <span class="string">""</span>
+</code></pre><h2 id="新建friends-ejs">新建friends.ejs</h2>
+<p>在themes/freemind/layout/_widget目录下新建friends.ejs。</p>
+<pre><code>&gt;<span class="vbscript">&lt;% <span class="keyword">if</span> (theme.friends.length){ %&gt;</span>
+&gt;<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"widget"</span>&gt;</span>
+&gt;    <span class="tag">&lt;<span class="title">h4</span>&gt;</span>友情链接<span class="tag">&lt;/<span class="title">h4</span>&gt;</span>
+&gt;    <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"blogroll list-unstyled"</span>&gt;</span>
+&gt;    <span class="vbscript">&lt;% <span class="keyword">for</span> (var i <span class="keyword">in</span> theme.friends){ %&gt;</span>
+&gt;        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"&lt;%- theme.friends[i].icon %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"&lt;%- theme.friends[i].url %&gt;"</span> <span class="attribute">title</span>=<span class="value">"&lt;%- theme.friends[i].intro %&gt;"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span><span class="value">]);"</span>&gt;</span><span class="vbscript">&lt;%= theme.friends[i].title %&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
+&gt;    <span class="vbscript">&lt;% } %&gt;</span>
+&gt;    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
+&gt;<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+&gt;<span class="vbscript">&lt;% } %&gt;</span>
+</code></pre><p>该方法针对hexo的主题freemind，其他主题修改方法可能略有不同。</p>
 	  
 	</div>
 
@@ -118,14 +132,14 @@
 	<div class="pagination">
 <ul class="pagination">
 	 
-				
-    	<li class="prev"><a href="/2014/10/06/leetCode之一：Two-Sum/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
-  		
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2014/09/26/终于搞定评论了/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2014/10/15/leetCode之七：Reverse-Integer/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -141,7 +155,7 @@
   <h2 class="title">留言</h2>
 
   
-  <div class="ds-thread" data-thread-key="post-个人页面建设完成" data-title="个人页面建设完成" data-url="http://ysyjerry1992.github.io/2014/09/28/个人页面建设完成/"></div>
+  <div class="ds-thread" data-thread-key="post-添加友情链接" data-title="添加友情链接" data-url="http://ysyjerry1992.github.io/2014/10/15/添加友情链接/"></div>
   
 </section>
 
@@ -157,7 +171,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	9月 28 2014 
+	10月 15 2014 
 	</div>
 	
 
@@ -181,7 +195,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/hexo/">hexo<span>4</span></a></li> <li><a href="/tags/感悟/">感悟<span>1</span></a></li>
+  <li><a href="/tags/hexo/">hexo<span>4</span></a></li>
     </ul>
 	</div>
 		
