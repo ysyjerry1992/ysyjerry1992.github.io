@@ -247,19 +247,19 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/c/">c++<span>8</span></a></li>
+			<li><a href="/tags/感悟/">感悟<span>1</span></a></li>
 		
 			<li><a href="/tags/算法/">算法<span>3</span></a></li>
 		
-			<li><a href="/tags/感悟/">感悟<span>1</span></a></li>
+			<li><a href="/tags/c/">c++<span>8</span></a></li>
 		
 			<li><a href="/tags/字符串/">字符串<span>5</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>4</span></a></li>
 		
 			<li><a href="/tags/整数/">整数<span>2</span></a></li>
 		
 			<li><a href="/tags/链表/">链表<span>1</span></a></li>
-		
-			<li><a href="/tags/hexo/">hexo<span>4</span></a></li>
 		
 		 
 		</ul>
@@ -342,10 +342,10 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
 
 <script type="text/javascript">
@@ -358,13 +358,13 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
@@ -374,15 +374,15 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
