@@ -84,51 +84,136 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> leetCode之六：ZigZag Conversion</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>第六道题，将普通的字符串转换成蛇行的格式。<br><a id="more"></a></p>
+<blockquote>
+<p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
+<blockquote>
+<p>P&#160; &#160; &#160; &#160; A&#160; &#160; &#160; &#160;H&#160; &#160; &#160; &#160;N<br>A&#160; &#160;P&#160; &#160;L&#160; &#160;S&#160; &#160;I&#160; &#160;I&#160; &#160;G<br>Y&#160; &#160; &#160; &#160; I&#160; &#160; &#160; &#160; R</p>
+</blockquote>
+<p>And then read line by line: “PAHNAPLSIIGYIR”</p>
+<p>Write the code that will take a string and make this conversion given a number of rows:</p>
+<p>string convert(string text, int nRows);</p>
+<p>convert(“PAYPALISHIRING”, 3) should return “PAHNAPLSIIGYIR”. </p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>题目的意思是给你一个普通格式的字符串，让你转换成蛇行的格式。</p>
+<p>主要难点就在于对于原字符串中的每个字符，计算它转换后应该在的位置。</p>
+<p>当然也可以对于转换后字符串的每个位置，计算它在原字符串中的位置。</p>
+<p>首先，我计算生成的蛇行字符串每行的字符数量。方法是通过计算蛇行字符串每个zig的长度，zig是如下形状：<br>|……./<br>|…../<br>|…/<br>|./</p>
+<p>然后对于字符串s，通过计算s.length()/lZig,和s.length()%lZig,就能得到每行的字符数量。</p>
+<p>接下去就是逐行往蛇行字符串里填充字符。</p>
+<p>首行和末行都比较简单，难点在于中间的几行。</p>
+<p>对于中间的几行，需要判断该位置是偶数位奇数位，接下去每两个偶数位的间隔长度和每个奇数位的间隔长度都一样，而初始位置不同。比如该行第一个和该行第三个的间隔一样，第二个和第四个的间隔一样。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">class Solution</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">string</span> <span class="title">convert</span>(<span class="keyword">string</span> s, <span class="keyword">int</span> nRows)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> l=s.length();</div><div class="line">        <span class="keyword">if</span>(l==<span class="number">0</span>)</div><div class="line">            <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="comment">//cout&lt;&lt;l;</span></div><div class="line">        <span class="keyword">int</span> lZig=<span class="number">2</span>*nRows-<span class="number">2</span>;</div><div class="line">        <span class="keyword">int</span> nZigs;</div><div class="line">        <span class="keyword">int</span> nLeft;</div><div class="line">        <span class="keyword">if</span>(nRows==<span class="number">1</span>)<span class="keyword">return</span> s;</div><div class="line">        nZigs=l/lZig;</div><div class="line">        nLeft=l%lZig;</div><div class="line">        <span class="keyword">int</span> n[nRows];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;nRows; i++)</div><div class="line">        {</div><div class="line">            <span class="keyword">if</span>(i==<span class="number">0</span>||i==nRows-<span class="number">1</span>)n[i]=nZigs;</div><div class="line">            <span class="keyword">else</span> n[i]=<span class="number">2</span>*nZigs;</div><div class="line">        }</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;nLeft; i++)</div><div class="line">        {</div><div class="line">            <span class="keyword">if</span>(i&lt;=nRows-<span class="number">1</span>)n[i]++;</div><div class="line">            <span class="keyword">else</span> n[<span class="number">2</span>*nRows-<span class="number">2</span>-i]++;</div><div class="line">        }</div><div class="line">        <span class="comment">//for(int i=0;i&lt;nRows;i++)cout&lt;&lt;n[i];</span></div><div class="line">        <span class="keyword">int</span> nRowNow=<span class="number">0</span>;</div><div class="line">        <span class="keyword">char</span> * answer =<span class="keyword">new</span> <span class="keyword">char</span>[l];</div><div class="line">        <span class="keyword">int</span> nLineNow=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;l; i++)</div><div class="line">        {</div><div class="line">            <span class="keyword">if</span>(nRowNow==<span class="number">0</span>)</div><div class="line">            {</div><div class="line">                answer[i]=s[nLineNow*lZig];</div><div class="line">                <span class="comment">//cout&lt;&lt;nLineNow*lZig;</span></div><div class="line">            }</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nRowNow==nRows-<span class="number">1</span>)</div><div class="line">            {</div><div class="line">                answer[i]=s[nLineNow*lZig+nRows-<span class="number">1</span>];</div><div class="line">                <span class="comment">//cout&lt;&lt;nLineNow*lZig+nRows-1;</span></div><div class="line">            }</div><div class="line">            <span class="keyword">else</span></div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(nLineNow%<span class="number">2</span>==<span class="number">0</span>)</div><div class="line">                {</div><div class="line">                    answer[i]=s[nLineNow/<span class="number">2</span>*lZig+nRowNow];</div><div class="line">                    <span class="comment">//cout&lt;&lt;nLineNow/2*lZig+nRowNow;</span></div><div class="line">                }</div><div class="line">                <span class="keyword">else</span></div><div class="line">                {</div><div class="line">                    answer[i]=s[(nLineNow/<span class="number">2</span>)*lZig+<span class="number">2</span>*nRows-nRowNow-<span class="number">2</span>];</div><div class="line">                    <span class="comment">//cout&lt;&lt;(nLineNow/2)*lZig+2*nRows-nRowNow-2;</span></div><div class="line">                }</div><div class="line">            }</div><div class="line">            <span class="keyword">if</span>(nLineNow++==(n[nRowNow]-<span class="number">1</span>))</div><div class="line">            {</div><div class="line">                nRowNow++;</div><div class="line">                nLineNow=<span class="number">0</span>;</div><div class="line">            }</div><div class="line">            <span class="keyword">if</span>(nRowNow&gt;nRows-<span class="number">1</span>)<span class="keyword">break</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">string</span> ans;</div><div class="line">        ans=answer;</div><div class="line">        <span class="keyword">return</span> ans.substr(<span class="number">0</span>,l);</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/15/leetCode之七：Reverse-Integer/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/10/leetCode之五：Longest-Palindromic-Substring/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之六：ZigZag-Conversion" data-title="leetCode之六：ZigZag Conversion" data-url="http://ysyjerry1992.github.io/2014/10/11/leetCode之六：ZigZag-Conversion/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 11 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>8</span></a></li> <li><a href="/tags/字符串/">字符串<span>5</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>
