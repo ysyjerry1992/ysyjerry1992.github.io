@@ -135,15 +135,19 @@
 	
 	<div>
 	<!-- comment -->
-	
+	<% if (page.comment){ %>
 <section id="comment">
-  <h2 class="title">留言</h2>
+  <h2 class="title"><%= __('comment') %></h2>
 
-  
-  <div class="ds-thread" data-thread-key="post-你好，hexo" data-title="你好，hexo!" data-url="http://ysyjerry1992.github.io/2014/09/25/你好，hexo/"></div>
-  
+  <% if (theme.comment_provider == "facebook") {
+      if (theme.facebook) { %>
+      <%- partial('_partial/facebook_comment', {fbConfig: theme.facebook}) %>
+      <% } %>
+  <% } else if(config.duoshuo_shortname) { %>
+  <div class="ds-thread" data-thread-key="<%= item.title %>-<%= item.slug %>" data-title="<%= item.title %>" data-url="<%= page.permalink %>"></div>
+  <% } %>
 </section>
-
+<% } %>
 
 	</div>
 	

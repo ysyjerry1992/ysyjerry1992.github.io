@@ -139,15 +139,19 @@
 	
 	<div>
 	<!-- comment -->
-	
+	<% if (page.comment){ %>
 <section id="comment">
-  <h2 class="title">留言</h2>
+  <h2 class="title"><%= __('comment') %></h2>
 
-  
-  <div class="ds-thread" data-thread-key="post-leetCode之四：Add-Two-Numbers" data-title="leetCode之四：Add Two Numbers" data-url="http://ysyjerry1992.github.io/2014/10/09/leetCode之四：Add-Two-Numbers/"></div>
-  
+  <% if (theme.comment_provider == "facebook") {
+      if (theme.facebook) { %>
+      <%- partial('_partial/facebook_comment', {fbConfig: theme.facebook}) %>
+      <% } %>
+  <% } else if(config.duoshuo_shortname) { %>
+  <div class="ds-thread" data-thread-key="<%= item.title %>-<%= item.slug %>" data-title="<%= item.title %>" data-url="<%= page.permalink %>"></div>
+  <% } %>
 </section>
-
+<% } %>
 
 	</div>
 	
@@ -171,7 +175,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/leetCode/">leetCode<span>13</span></a></li>
+    <li><a href="/categories/leetCode/">leetCode<span>14</span></a></li>
   </li>
 
     </ul>
@@ -184,7 +188,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/c/">c++<span>13</span></a></li> <li><a href="/tags/链表/">链表<span>1</span></a></li>
+  <li><a href="/tags/c/">c++<span>14</span></a></li> <li><a href="/tags/链表/">链表<span>1</span></a></li>
     </ul>
 	</div>
 		
