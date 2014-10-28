@@ -84,51 +84,130 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> leetCode之十：Container With Most Water</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>第十道题，找出题中描述的场景中能够装最多水的容器。<br><a id="more"></a></p>
+<blockquote>
+<p>Given n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
+<p>Note: You may not slant the container. </p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>首先是理解题目。实际上就是在横坐标(i,0)处有高度为ai的竖线，让你找出两条竖线，它们与横坐标围成的容器能够装最多水。</p>
+<p>注意这里是装水，所以计算面积的时候，应该用短的那条线高度乘以这两条竖线的距离。俗话说的好，一个桶能装多少水取决于它的短板。 =。=</p>
+<p>如果直接算出所有情况，复杂度为O(n2)。肯定是通不过的。</p>
+<p>这里采用贪心的思想，每次取局部最优解。</p>
+<p>首先用两个指针分别指向a1和an，计算出面积为min(a1,an)*(n-1)，然后移动较短的那条。</p>
+<p>我们假设短的那条是a1，那么面积为a1*(n-1)，那么我们在移动了指针之后，我们没有计算的组合是(a1,an-1),(a1,an-2)……。</p>
+<p>以(a1,an-1)为例，他的面积是min(a1,an-1)*(n-2)。可知min(a1,an-1)&lt;=a1，n-2&lt;n-1，所以推得if (a1&lt;=an) S(a1,an-1)&lt;S(a1,an) 。</p>
+<p>这样时间复杂度就降为O(n)。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution {</div><div class="line">public:</div><div class="line">    <span class="keyword">int</span> maxArea(<span class="keyword">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;height) {</div><div class="line">        <span class="keyword">int</span> pos1=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> pos2=height.<span class="keyword">size</span>()-<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> <span class="keyword">max</span>=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(pos1&lt;pos2)</div><div class="line">        {</div><div class="line">                <span class="keyword">int</span> l1=height.at(pos1);</div><div class="line">                <span class="keyword">int</span> l2=height.at(pos2);</div><div class="line">                <span class="keyword">int</span> area=(l1&gt;l2?l2:l1)<span class="variable">*(</span>pos2-pos1);</div><div class="line">                <span class="keyword">max</span>=area&gt;<span class="keyword">max</span>?area:<span class="keyword">max</span>;</div><div class="line">                <span class="keyword">if</span>(l2&gt;l1)pos1++;</div><div class="line">                <span class="keyword">else</span> pos2--;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> <span class="keyword">max</span>;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/20/leetCode之十一：Regular-Expression-Matching/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/17/leetCode之九：Palindrome-Number/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之十：Container-With-Most-Water" data-title="leetCode之十：Container With Most Water" data-url="http://ysyjerry1992.github.io/2014/10/17/leetCode之十：Container-With-Most-Water/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 17 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>14</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>14</span></a></li> <li><a href="/tags/算法/">算法<span>6</span></a></li> <li><a href="/tags/贪心/">贪心<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>

@@ -84,51 +84,134 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> leetCode之五：Longest Palindromic Substring</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>第五道题，求字符串中最长回文字串。<br><a id="more"></a></p>
+<blockquote>
+<p>Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.</p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>这里用到中心扩展法。对于字符串的每一个字符，以它为中心向两边进行扩展，找出以它为中心的最长的回文长度。</p>
+<p>这样的话时间复杂度为O(n^2)。</p>
+<p>值得一提的是，需要分别考虑回文长度为奇数和偶数的情况。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">class Solution {</div><div class="line">public:</div><div class="line">    <span class="keyword">string</span> longestPalindrome(<span class="keyword">string</span> s) {</div><div class="line">        <span class="keyword">int</span> <span class="keyword">max</span>=<span class="number">0</span>;</div><div class="line">        <span class="keyword">string</span> answer;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)</div><div class="line">        {</div><div class="line">               <span class="keyword">string</span> a=findRadix(s,i,i);</div><div class="line">               <span class="keyword">if</span>(a.length()&gt;<span class="keyword">max</span>)</div><div class="line">               {</div><div class="line">                <span class="keyword">max</span>=a.length();</div><div class="line">                answer=a;</div><div class="line">               }</div><div class="line">               a=findRadix(s,i,i+<span class="number">1</span>);</div><div class="line">                <span class="keyword">if</span>(a.length()&gt;<span class="keyword">max</span>)</div><div class="line">               {</div><div class="line">                <span class="keyword">max</span>=a.length();</div><div class="line">                answer=a;</div><div class="line">               }</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> answer;</div><div class="line">    }</div><div class="line">    <span class="keyword">string</span> findRadix(<span class="keyword">string</span> s,<span class="keyword">int</span> pos1,<span class="keyword">int</span> pos2)</div><div class="line">    {</div><div class="line">        <span class="keyword">string</span> str;</div><div class="line">        <span class="keyword">int</span> answer;</div><div class="line">        <span class="keyword">if</span>(pos1==pos2)answer=-<span class="number">1</span>;</div><div class="line">        <span class="keyword">else</span> answer=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(pos1&gt;=<span class="number">0</span>&amp;&amp;pos2&lt;s.length()&amp;&amp;s[pos1]==s[pos2])</div><div class="line">        {</div><div class="line">                answer+=<span class="number">2</span>;</div><div class="line">                pos1--;</div><div class="line">                pos2++;</div><div class="line">        }</div><div class="line">        str=s.substr(pos1+<span class="number">1</span>,answer);</div><div class="line">        <span class="keyword">return</span> str;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<h2 id="其他方法">其他方法</h2>
+<p>用动态规划来考虑，建立字符串长度l^2大小bool类型的二维数组（实际只用到一半），t[i][j]==true表示字符串从i到j是回文。</p>
+<p>那么得到范式t[i][j]=(t[i+1][j-1]==true&amp;&amp;s[i]==s[j])。</p>
+<p>在建立数组的时候，先考虑长度为1或2的字串，即将t[i][i]置为true，如果s[i]==s[i+1],将t[i][i+1]置为true。</p>
+<p>接下去依次考虑长度增加时的情况，逐渐填满数组，得到结果。</p>
+<h2 id="代码-1">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">class Solution</div><div class="line">{</div><div class="line">public:</div><div class="line">    string longestPalindrome(string s)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> l=s.<span class="built_in">length</span>();</div><div class="line">        <span class="keyword">int</span> start=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> <span class="built_in">max</span>=<span class="number">1</span>;</div><div class="line">        <span class="keyword">bool</span> t[l][l];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;l; i++)</div><div class="line">        {</div><div class="line">            t[i][i]=<span class="literal">true</span>;</div><div class="line">            <span class="keyword">if</span>(i!=l-<span class="number">1</span>)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(s[i]==s[i+<span class="number">1</span>])</div><div class="line">                {</div><div class="line">                    t[i][i+<span class="number">1</span>]=<span class="literal">true</span>;</div><div class="line">                    start=i;</div><div class="line">                    <span class="built_in">max</span>=<span class="number">2</span>;</div><div class="line">                }</div><div class="line">                <span class="keyword">else</span> t[i][i+<span class="number">1</span>]=<span class="literal">false</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> <span class="built_in">length</span>=<span class="number">3</span>; <span class="built_in">length</span>&lt;=l; <span class="built_in">length</span>++)</div><div class="line">        {</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> sPos=<span class="number">0</span>; sPos&lt;l-<span class="built_in">length</span>+<span class="number">1</span>; sPos++)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(s[sPos]==s[sPos+<span class="built_in">length</span>-<span class="number">1</span>]&amp;&amp;t[sPos+<span class="number">1</span>][sPos+<span class="built_in">length</span>-<span class="number">1</span>-<span class="number">1</span>]==<span class="literal">true</span>)</div><div class="line">                {</div><div class="line">                    t[sPos][sPos+<span class="built_in">length</span>-<span class="number">1</span>]=<span class="literal">true</span>;</div><div class="line">                    <span class="keyword">if</span>(<span class="built_in">length</span>&gt;<span class="built_in">max</span>)</div><div class="line">                    {</div><div class="line">                        start=sPos;</div><div class="line">                        <span class="built_in">max</span>=<span class="built_in">length</span>;</div><div class="line">                    }</div><div class="line">                }</div><div class="line">                <span class="keyword">else</span> t[sPos][sPos+<span class="built_in">length</span>-<span class="number">1</span>]=<span class="literal">false</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> s.substr(start,<span class="built_in">max</span>);</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<p>参考：<br><a href="http://blog.csdn.net/zhouworld16/article/details/16842467" target="_blank" rel="external">zhouworld16的博文：求最长回文子串(Longest Palindromic Substring)</a></p>
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/11/leetCode之六：ZigZag-Conversion/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/09/leetCode之四：Add-Two-Numbers/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之五：Longest-Palindromic-Substring" data-title="leetCode之五：Longest Palindromic Substring" data-url="http://ysyjerry1992.github.io/2014/10/10/leetCode之五：Longest-Palindromic-Substring/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 10 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>14</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>14</span></a></li> <li><a href="/tags/字符串/">字符串<span>8</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>

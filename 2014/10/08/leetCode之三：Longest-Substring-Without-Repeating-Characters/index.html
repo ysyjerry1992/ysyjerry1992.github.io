@@ -84,51 +84,126 @@
   	<div class="content">
     	 
 
-<%- partial('post/title', {item: item, index: false}) %>
 
-<% if (!item.resume) { %>
+	
+		<div class="page-header">		
+			<h1> leetCode之三：Longest Substring Without Repeating Characters</h1>
+		</div>		
+	
 
 
 
-<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
+<div class="row post">
 	<!-- cols -->
-	<% if (post) { %>
+	
 	<div class="col-md-9">
-	<% } else { %>
-	<div class="col-md-12">
-	<% } %>
+	
 
-	<% if (item.description) { %>
-		 <div class="alert alert-success description">
-			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
-		</div> <!-- alert -->
-	<% } %>		
+			
 
 	<!-- content -->
 	<div class="mypage">		
-	    <%- item.content %>	  
+	    <p>第三道题，求字符串最长没有重复字符的子串。<br><a id="more"></a></p>
+<blockquote>
+<p>Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.</p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>一开始我的想法是用一个vector记录之前出现过的字符以及位置，然后扫到重复的字符就从这个字符上一次出现的位置之后一位重新开始扫。</p>
+<p>仔细思索之后发现其实有很多地方做的不妥。</p>
+<p>首先是可以采用一个数组做hash，记录之前出现过的字符以及它出现的最后一次出现的位置。</p>
+<p>然后就是在扫到重复字符后的操作。其实在扫到重复的字符的时候，因为有该字符上一次出现的位置，所以可以很快得到当前这个子串的长度。所以不用回头去重新扫，而是只要记录好长度时候，更新该字符最后的位置，继续扫描，直到下一个重复的字符。</p>
+<p>这样的话，时间复杂度就比较低了。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">class Solution</div><div class="line">{</div><div class="line">public:</div><div class="line">    <span class="keyword">int</span> lengthOfLongestSubstring(string s)</div><div class="line">    {</div><div class="line">        <span class="keyword">return</span> helper(s,<span class="number">0</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">int</span> helper(string &amp;s,<span class="keyword">int</span> start)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> <span class="built_in">max</span>=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> loc[<span class="number">256</span>] ;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)loc[i]=-<span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=start; i&lt;s.<span class="built_in">length</span>(); i++)</div><div class="line">        {</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(loc[s[i]]&gt;=start)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(i-start&gt;<span class="built_in">max</span>)</div><div class="line">                {</div><div class="line">                    <span class="built_in">max</span>=i-start;</div><div class="line">                }</div><div class="line">                start=loc[s[i]]+<span class="number">1</span>;</div><div class="line">                loc[s[i]]=i;</div><div class="line">            }</div><div class="line">            <span class="keyword">else</span></div><div class="line">            {</div><div class="line">                loc[s[i]]=i;</div><div class="line">            }</div><div class="line">        }<span class="keyword">return</span> <span class="built_in">max</span>&gt;(s.<span class="built_in">length</span>()-start)?<span class="built_in">max</span>:s.<span class="built_in">length</span>()-start;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+	  
 	</div>
 
 	<div>
   	<center>
-	<%- partial('post/pagination', {page: item}) %>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/09/leetCode之四：Add-Two-Numbers/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/07/leetCode之二：Median-of-Two-Sorted-Array/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<%- partial('post/comment', {page: item}) %>
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之三：Longest-Substring-Without-Repeating-Characters" data-title="leetCode之三：Longest Substring Without Repeating Characters" data-url="http://ysyjerry1992.github.io/2014/10/08/leetCode之三：Longest-Substring-Without-Repeating-Characters/"></div>
+  
+</section>
+
+
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	<% if (post) { %>
-		<%- partial('post/meta', {item: item}) %>
-	<% } %>
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 8 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>14</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>14</span></a></li> <li><a href="/tags/算法/">算法<span>6</span></a></li> <li><a href="/tags/字符串/">字符串<span>8</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
 
 </div><!-- row -->
-
-<% } %>	
+	
 
 	</div>
   </div>
