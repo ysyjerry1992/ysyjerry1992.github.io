@@ -84,139 +84,51 @@
   	<div class="content">
     	 
 
+<%- partial('post/title', {item: item, index: false}) %>
 
-	
-		<div class="page-header">		
-			<h1> 添加友情链接</h1>
-		</div>		
-	
+<% if (!item.resume) { %>
 
 
 
-<div class="row post">
+<div class="row <% if (post) { %>post<% } else { %>page<% } %>">
 	<!-- cols -->
-	
+	<% if (post) { %>
 	<div class="col-md-9">
-	
+	<% } else { %>
+	<div class="col-md-12">
+	<% } %>
 
-			
+	<% if (item.description) { %>
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> <%- markdown(item.description) %>			
+		</div> <!-- alert -->
+	<% } %>		
 
 	<!-- content -->
 	<div class="mypage">		
-	    <p>今天在我的博客中添加了友情链接，朋友们可以点击链接去到<a href="http://jerryZou.com" target="_blank" rel="external">我朋友的主页</a>。<br><a id="more"></a></p>
-<h2 id="修改_config-yml">修改_config.yml</h2>
-<p>在themes/freemind/找到_config.yml。添加</p>
-<pre><code><span class="input"><span class="prompt">&gt;friends:
-&gt;</span>  - <span class="symbol">title:</span> <span class="string">"Jerry Zou"</span></span>
-<span class="input"><span class="prompt">&gt;    url: http://jerryZou.com
-&gt;</span>    <span class="symbol">intro:</span> <span class="string">"Jerry Zou's homepage"</span></span>
-&gt;    <span class="symbol">icon:</span> <span class="string">""</span>
-</code></pre><h2 id="新建friends-ejs">新建friends.ejs</h2>
-<p>在themes/freemind/layout/_widget目录下新建friends.ejs。</p>
-<pre><code>&gt;<span class="vbscript">&lt;% <span class="keyword">if</span> (theme.friends.length){ %&gt;</span>
-&gt;<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"widget"</span>&gt;</span>
-&gt;    <span class="tag">&lt;<span class="title">h4</span>&gt;</span>友情链接<span class="tag">&lt;/<span class="title">h4</span>&gt;</span>
-&gt;    <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"blogroll list-unstyled"</span>&gt;</span>
-&gt;    <span class="vbscript">&lt;% <span class="keyword">for</span> (var i <span class="keyword">in</span> theme.friends){ %&gt;</span>
-&gt;        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">i</span> <span class="attribute">class</span>=<span class="value">"&lt;%- theme.friends[i].icon %&gt;"</span>&gt;</span><span class="tag">&lt;/<span class="title">i</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"&lt;%- theme.friends[i].url %&gt;"</span> <span class="attribute">title</span>=<span class="value">"&lt;%- theme.friends[i].intro %&gt;"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span><span class="value">]);"</span>&gt;</span><span class="vbscript">&lt;%= theme.friends[i].title %&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-&gt;    <span class="vbscript">&lt;% } %&gt;</span>
-&gt;    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-&gt;<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-&gt;<span class="vbscript">&lt;% } %&gt;</span>
-</code></pre><p>该方法针对hexo的主题freemind，其他主题修改方法可能略有不同。</p>
-	  
+	    <%- item.content %>	  
 	</div>
 
 	<div>
   	<center>
-	<div class="pagination">
-<ul class="pagination">
-	 
-				
-    	<li class="prev"><a href="/2014/10/16/leetCode之八：String-to-Integer-atoi/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
-  		
-
-        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
-
-		
-		   <li class="next"><a href="/2014/10/15/leetCode之七：Reverse-Integer/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
-        
-	
-</ul>
-</div>
-
+	<%- partial('post/pagination', {page: item}) %>
     </center>
 	</div>
 	
 	<div>
 	<!-- comment -->
-	<% if (page.comment){ %>
-<section id="comment">
-  <h2 class="title"><%= __('comment') %></h2>
-
-  <% if (theme.comment_provider == "facebook") {
-      if (theme.facebook) { %>
-      <%- partial('_partial/facebook_comment', {fbConfig: theme.facebook}) %>
-      <% } %>
-  <% } else if(config.duoshuo_shortname) { %>
-  <div class="ds-thread" data-thread-key="<%= item.title %>-<%= item.slug %>" data-title="<%= item.title %>" data-url="<%= page.permalink %>"></div>
-  <% } %>
-</section>
-<% } %>
-
+	<%- partial('post/comment', {page: item}) %>
 	</div>
 	
 	</div> <!-- col-md-9/col-md-12 -->
 	
-	
-		<div class="col-md-3"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	10月 15 2014 
-	</div>
-	
-
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/博客/">博客<span>4</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/hexo/">hexo<span>4</span></a></li>
-    </ul>
-	</div>
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-	
+	<% if (post) { %>
+		<%- partial('post/meta', {item: item}) %>
+	<% } %>
 
 </div><!-- row -->
-	
+
+<% } %>	
 
 	</div>
   </div>
@@ -232,10 +144,10 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
 
 <script type="text/javascript">
@@ -248,13 +160,13 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
@@ -264,15 +176,15 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
