@@ -177,7 +177,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/leetCode/">leetCode<span>14</span></a></li>
+    <li><a href="/categories/leetCode/">leetCode<span>15</span></a></li>
   </li>
 
     </ul>
@@ -190,7 +190,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/c/">c++<span>14</span></a></li> <li><a href="/tags/算法/">算法<span>6</span></a></li> <li><a href="/tags/贪心/">贪心<span>1</span></a></li>
+  <li><a href="/tags/c/">c++<span>15</span></a></li> <li><a href="/tags/算法/">算法<span>7</span></a></li> <li><a href="/tags/贪心/">贪心<span>1</span></a></li>
     </ul>
 	</div>
 		
@@ -223,10 +223,10 @@
   <span>▲</span> 
 </a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
+<script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
+<script src="<%- config.root %>js/gallery.js"></script>
+<script src="<%- config.root %>js/bootstrap.min.js"></script>
+<script src="<%- config.root %>js/main.js"></script>
 
 
 <script type="text/javascript">
@@ -239,13 +239,13 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 		(document.getElementsByTagName('head')[0] 
 		 || document.getElementsByTagName('body')[0]).appendChild(ds);
 	})();
-/*var disqus_shortname = 'yusiyuan';
+/*var disqus_shortname = '<%= config.duoshuo_shortname %>';
 
 (function(){
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());*/
 </script>
@@ -255,15 +255,15 @@ var duoshuoQuery = {short_name:"yusiyuan"};
 	
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<% if (theme.fancybox){ %>
+<link rel="stylesheet" href="<%- config.root %>fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="<%- config.root %>fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
   $('.fancybox').fancybox();
 })(jQuery);
 </script>
-
+<% } %>
 
 <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");

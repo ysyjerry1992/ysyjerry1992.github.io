@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>leetCode之三：Longest Substring Without Repeating Characters | Yusiyuan&#39;s Blog</title>
+  <title>leetCode之十五：Longest Common Prefix | Yusiyuan&#39;s Blog</title>
   <meta name="author" content="Jerry Yu">
   
-  <meta name="description" content="第三道题，求字符串最长没有重复字符的子串。">
+  <meta name="description" content="第十五题，找出所给字符串的最长公共前缀。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="leetCode之三：Longest Substring Without Repeating Characters"/>
+  <meta property="og:title" content="leetCode之十五：Longest Common Prefix"/>
   <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
 
   
@@ -87,7 +87,7 @@
 
 	
 		<div class="page-header">		
-			<h1> leetCode之三：Longest Substring Without Repeating Characters</h1>
+			<h1> leetCode之十五：Longest Common Prefix</h1>
 		</div>		
 	
 
@@ -103,18 +103,14 @@
 
 	<!-- content -->
 	<div class="mypage">		
-	    <p>第三道题，求字符串最长没有重复字符的子串。<br><a id="more"></a></p>
+	    <p>第十五题，找出所给字符串的最长公共前缀。<br><a id="more"></a></p>
 <blockquote>
-<p>Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.</p>
+<p>Write a function to find the longest common prefix string amongst an array of strings. </p>
 </blockquote>
 <h2 id="方法">方法</h2>
-<p>一开始我的想法是用一个vector记录之前出现过的字符以及位置，然后扫到重复的字符就从这个字符上一次出现的位置之后一位重新开始扫。</p>
-<p>仔细思索之后发现其实有很多地方做的不妥。</p>
-<p>首先是可以采用一个数组做hash，记录之前出现过的字符以及它出现的最后一次出现的位置。</p>
-<p>然后就是在扫到重复字符后的操作。其实在扫到重复的字符的时候，因为有该字符上一次出现的位置，所以可以很快得到当前这个子串的长度。所以不用回头去重新扫，而是只要记录好长度时候，更新该字符最后的位置，继续扫描，直到下一个重复的字符。</p>
-<p>这样的话，时间复杂度就比较低了。</p>
+<p>我采用的方法，是先找出前两个字符串的公共前缀s，然后求s和下一个字符串的公共前缀。<br>如果有其他好的做法可以在下面留言。</p>
 <h2 id="代码">代码</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">class Solution</div><div class="line">{</div><div class="line">public:</div><div class="line">    <span class="keyword">int</span> lengthOfLongestSubstring(string s)</div><div class="line">    {</div><div class="line">        <span class="keyword">return</span> helper(s,<span class="number">0</span>);</div><div class="line">    }</div><div class="line">    <span class="keyword">int</span> helper(string &amp;s,<span class="keyword">int</span> start)</div><div class="line">    {</div><div class="line">        <span class="keyword">int</span> <span class="built_in">max</span>=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> loc[<span class="number">256</span>] ;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)loc[i]=-<span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=start; i&lt;s.<span class="built_in">length</span>(); i++)</div><div class="line">        {</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(loc[s[i]]&gt;=start)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(i-start&gt;<span class="built_in">max</span>)</div><div class="line">                {</div><div class="line">                    <span class="built_in">max</span>=i-start;</div><div class="line">                }</div><div class="line">                start=loc[s[i]]+<span class="number">1</span>;</div><div class="line">                loc[s[i]]=i;</div><div class="line">            }</div><div class="line">            <span class="keyword">else</span></div><div class="line">            {</div><div class="line">                loc[s[i]]=i;</div><div class="line">            }</div><div class="line">        }<span class="keyword">return</span> <span class="built_in">max</span>&gt;(s.<span class="built_in">length</span>()-start)?<span class="built_in">max</span>:s.<span class="built_in">length</span>()-start;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">string</span> longestCommonPrefix(<span class="stl_container"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;</span> &amp;strs)</div><div class="line">    {</div><div class="line">        <span class="keyword">if</span>(strs.size()==<span class="number">0</span>)<span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">        <span class="built_in">string</span> answer=strs[<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;strs.size(); i++)</div><div class="line">        {</div><div class="line">            <span class="built_in">string</span> tmp=<span class="string">""</span>;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;answer.length(),j&lt;strs[i].length(); j++)</div><div class="line">            {</div><div class="line">                <span class="keyword">if</span>(answer[j]!=strs[i][j])<span class="keyword">break</span>;</div><div class="line">                <span class="keyword">else</span> tmp+=answer[j];</div><div class="line">            }</div><div class="line">            answer=tmp;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> answer;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
 	  
 	</div>
 
@@ -123,14 +119,14 @@
 	<div class="pagination">
 <ul class="pagination">
 	 
-				
-    	<li class="prev"><a href="/2014/10/09/leetCode之四：Add-Two-Numbers/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
-  		
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2014/10/07/leetCode之二：Median-of-Two-Sorted-Array/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2014/10/28/leetCode之十四：3Sum/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>
@@ -146,7 +142,7 @@
   <h2 class="title">留言</h2>
 
   
-  <div class="ds-thread" data-thread-key="post-leetCode之三：Longest-Substring-Without-Repeating-Characters" data-title="leetCode之三：Longest Substring Without Repeating Characters" data-url="http://ysyjerry1992.github.io/2014/10/08/leetCode之三：Longest-Substring-Without-Repeating-Characters/"></div>
+  <div class="ds-thread" data-thread-key="post-leetCode之十五：Longest-Common-Prefix" data-title="leetCode之十五：Longest Common Prefix" data-url="http://ysyjerry1992.github.io/2014/11/05/leetCode之十五：Longest-Common-Prefix/"></div>
   
 </section>
 
@@ -162,7 +158,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	10月 8 2014 
+	11月 5 2014 
 	</div>
 	
 
