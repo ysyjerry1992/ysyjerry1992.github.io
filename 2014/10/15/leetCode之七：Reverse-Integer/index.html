@@ -1,14 +1,278 @@
-<%- partial('_partial/head') %>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>leetCode之七：Reverse Integer | Yusiyuan&#39;s Blog</title>
+  <meta name="author" content="Jerry Yu">
+  
+  <meta name="description" content="第七道题，将给的整数倒置，注意溢出的情况。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="leetCode之七：Reverse Integer"/>
+  <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
  <body>  
-  <%- partial('_partial/navigation') %>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Yusiyuan&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>文章
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>分类
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>标签
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>关于我
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
   <div class="container">
   	<div class="content">
-    	 <%- body %>
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> leetCode之七：Reverse Integer</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+			
+
+	<!-- content -->
+	<div class="mypage">		
+	    <p>第七道题，将给的整数倒置，注意溢出的情况。<br><a id="more"></a></p>
+<blockquote>
+<p>Reverse digits of an integer.</p>
+<p>Example1: x = 123, return 321<br>Example2: x = -123, return -321</p>
+<p>Have you thought about this?</p>
+<p>Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!</p>
+<p>If the integer’s last digit is 0, what should the output be? ie, cases such as 10,100.</p>
+<p>Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. &gt;How should you handle such cases?</p>
+<p>Throw an exception? Good, but what if throwing an exception is not an option? You would then have to re-design the function (ie, add an extra parameter).</p>
+</blockquote>
+<h2 id="方法">方法</h2>
+<p>方法非常简单，每次将数除以10，并取余，来取出原整数的每一位。然后再倒序乘以10的一次方、二次方、三次方…加到新的数上。</p>
+<h2 id="处理overflow">处理overflow</h2>
+<p>虽然提示中指出了希望考虑overflow的情况，但是在leetCode中，没有处理溢出的code也会通过。</p>
+<p>这里说下我的方法。主要就是在把一位一位加到新的数上answer的时候，事先判断加上之后会不会overflow。</p>
+<p>采用INT_MAX和加的数的差值和answer比较，如果加上之后会溢出，那么直接返回INT_MAX。INT_MIN的情况与之类似。</p>
+<p>具体请看代码中的 25 - 27 行。</p>
+<h2 id="代码">代码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution</div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">int</span> reverse(<span class="keyword">int</span> x)</div><div class="line">    {</div><div class="line">        <span class="stl_container"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;</span> l;</div><div class="line">        <span class="keyword">int</span> tmp=x;</div><div class="line">        <span class="keyword">bool</span> isN=<span class="keyword">false</span>;</div><div class="line">        <span class="keyword">if</span>(tmp&lt;<span class="number">0</span>)</div><div class="line">        {</div><div class="line">            tmp=-tmp;</div><div class="line">            isN=<span class="keyword">true</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">while</span>(tmp!=<span class="number">0</span>)</div><div class="line">        {</div><div class="line">            l.push_back(tmp%<span class="number">10</span>);</div><div class="line">            tmp=tmp/<span class="number">10</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">double</span> answer=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> times=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(!l.empty())</div><div class="line">        {</div><div class="line">            <span class="keyword">int</span> s=l.size();</div><div class="line">            <span class="keyword">int</span> bonus=l[s-<span class="number">1</span>]*<span class="built_in">pow</span>(<span class="number">10</span>,times++);</div><div class="line">            <span class="keyword">if</span>(!isN&amp;&amp;INT_MAX-bonus&lt;=answer)<span class="keyword">return</span> INT_MAX;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(isN&amp;&amp;INT_MIN+bonus&gt;=-answer)<span class="keyword">return</span> INT_MIN;</div><div class="line">            <span class="keyword">else</span> answer+=bonus;</div><div class="line">            l.pop_back();</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span>(isN)<span class="keyword">return</span> <span class="number">0</span>-answer;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> answer;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+
+
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/15/添加友情链接/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/11/leetCode之六：ZigZag-Conversion/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<div>
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之七：Reverse-Integer" data-title="leetCode之七：Reverse Integer" data-url="http://ysyjerry1992.github.io/2014/10/15/leetCode之七：Reverse-Integer/"></div>
+  
+</section>
+
+
+	</div>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+	
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 15 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>17</span></a></li> <li><a href="/tags/整数/">整数<span>5</span></a></li> <li><a href="/tags/字符串/">字符串<span>9</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
+
+</div><!-- row -->
+	
+
 	</div>
   </div>
   <div class="container-narrow">
-  <footer> <%- partial('_partial/footer') %> </footer>
+  <footer> <p>
+  &copy; 2015 Jerry Yu
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
 </div> <!-- container-narrow -->
-  <%- partial('_partial/after_footer') %>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yusiyuan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+/*var disqus_shortname = 'yusiyuan';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());*/
+</script>
+
+
+
+	
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fbf6268b95d8220ab2e7f31ba95b690e5' type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
    </html>

@@ -1,14 +1,267 @@
-<%- partial('_partial/head') %>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>leetCode之四：Add Two Numbers | Yusiyuan&#39;s Blog</title>
+  <meta name="author" content="Jerry Yu">
+  
+  <meta name="description" content="第四道题，简单的链表操作。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="leetCode之四：Add Two Numbers"/>
+  <meta property="og:site_name" content="Yusiyuan&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
  <body>  
-  <%- partial('_partial/navigation') %>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Yusiyuan&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>文章
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>分类
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>标签
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>关于我
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
   <div class="container">
   	<div class="content">
-    	 <%- body %>
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> leetCode之四：Add Two Numbers</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+			
+
+	<!-- content -->
+	<div class="mypage">		
+	    <p>第四道题，简单的链表操作。<br><a id="more"></a></p>
+<blockquote>
+<p>You are given two linked lists representing two non-negative numbers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</p>
+<p>Output: 7 -&gt; 0 -&gt; 8</p>
+<p>struct ListNode<br>{<br>    int val;<br>    ListNode *next;<br>    ListNode(int x) : val(x), next(NULL) {}<br>};</p>
+</blockquote>
+<h2 id="代码">代码</h2>
+<p>这道题难度较低，就直接贴出代码吧。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></div><div class="line">{</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)</div><div class="line">    {</div><div class="line">        int bonus=<span class="number">0</span>;</div><div class="line">        ListNode* start=<span class="keyword">NULL</span>;</div><div class="line">        ListNode* last=<span class="keyword">NULL</span>;</div><div class="line">        <span class="keyword">while</span>(!(l1==<span class="keyword">NULL</span>&amp;&amp;l2==<span class="keyword">NULL</span>))</div><div class="line">        {</div><div class="line">            int v1=<span class="number">0</span>;</div><div class="line">            int v2=<span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span>(l1!=<span class="keyword">NULL</span>)v1=l1<span class="variable">-&gt;val</span>;</div><div class="line">            <span class="keyword">if</span>(l2!=<span class="keyword">NULL</span>)v2=l2<span class="variable">-&gt;val</span>;</div><div class="line">            int value=bonus+v1+v2;</div><div class="line">            <span class="keyword">if</span>(start==<span class="keyword">NULL</span>)</div><div class="line">            {</div><div class="line">                start=<span class="keyword">new</span> ListNode(value%<span class="number">10</span>);</div><div class="line">                bonus=value/<span class="number">10</span>;</div><div class="line">                last=start;</div><div class="line">            }</div><div class="line">            <span class="keyword">else</span></div><div class="line">            {</div><div class="line">                ListNode* temp=<span class="keyword">new</span> ListNode(value%<span class="number">10</span>);</div><div class="line">                bonus=value/<span class="number">10</span>;</div><div class="line">                last<span class="variable">-&gt;next</span>=temp;</div><div class="line">                last=temp;</div><div class="line">            }</div><div class="line">            <span class="keyword">if</span>(l1!=<span class="keyword">NULL</span>)l1=l1<span class="variable">-&gt;next</span>;</div><div class="line">            <span class="keyword">if</span>(l2!=<span class="keyword">NULL</span>)l2=l2<span class="variable">-&gt;next</span>;</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span>(bonus!=<span class="number">0</span>)</div><div class="line">        {</div><div class="line">            ListNode* l=<span class="keyword">new</span> ListNode(bonus);</div><div class="line">            last<span class="variable">-&gt;next</span>=l;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> start;</div><div class="line">    }</div><div class="line">};</div></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2014/10/10/leetCode之五：Longest-Palindromic-Substring/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/10/08/leetCode之三：Longest-Substring-Without-Repeating-Characters/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<div>
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  <div class="ds-thread" data-thread-key="post-leetCode之四：Add-Two-Numbers" data-title="leetCode之四：Add Two Numbers" data-url="http://ysyjerry1992.github.io/2014/10/09/leetCode之四：Add-Two-Numbers/"></div>
+  
+</section>
+
+
+	</div>
+	
+	</div> <!-- col-md-9/col-md-12 -->
+	
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	10月 9 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/leetCode/">leetCode<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c/">c++<span>17</span></a></li> <li><a href="/tags/链表/">链表<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
+
+</div><!-- row -->
+	
+
 	</div>
   </div>
   <div class="container-narrow">
-  <footer> <%- partial('_partial/footer') %> </footer>
+  <footer> <p>
+  &copy; 2015 Jerry Yu
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
 </div> <!-- container-narrow -->
-  <%- partial('_partial/after_footer') %>
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"yusiyuan"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+/*var disqus_shortname = 'yusiyuan';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());*/
+</script>
+
+
+
+	
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fbf6268b95d8220ab2e7f31ba95b690e5' type='text/javascript'%3E%3C/script%3E"));
+</script>
 </body>
    </html>
